@@ -21,12 +21,20 @@ public class Chre {
             String userInput = ui.readCommand();
             ui.showSeparator();
 
-            String command = parser.parse(userInput);
+            String command = parser.getCommand(userInput);
 
             if (command.equals("list")) {
                 ui.showTasks(taskList.getTasks());
             } else if (command.equals("bye")) {
                 isRunning = false;
+            } else if (command.equals("mark")) {
+                int index = Integer.parseInt(parser.getTaskIndex(userInput));
+                taskList.markTaskDone(index);
+                ui.showTaskMarked(taskList.getTasks().get(index - 1));
+            } else if (command.equals("unmark")) {
+                int index = Integer.parseInt(parser.getTaskIndex(userInput));
+                taskList.unmarkTaskDone(index);
+                ui.showTaskUnmarked(taskList.getTasks().get(index - 1));
             } else { // "add" command
                 String task = parser.getTaskContent(userInput);
                 taskList.addTask(task);

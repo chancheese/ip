@@ -58,9 +58,9 @@ public class Ui {
      *
      * @param tasks the list of tasks to display
      */
-    public void showTasks(List<String> tasks) {
+    public void showTasks(List<Task> tasks) {
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println(" " + (i + 1) + ". " + tasks.get(i));
+            System.out.println(" " + (i + 1) + ". " + tasks.get(i).getStatusString());
         }
     }
 
@@ -71,6 +71,26 @@ public class Ui {
      */
     public void showTaskAdded(String task) {
         System.out.println("added: " + task);
+    }
+
+    /**
+     * Displays a confirmation message when a task is marked as done.
+     *
+     * @param task the task that was marked as done
+     */
+    public void showTaskMarked(Task task) {
+        System.out.println("Nice! I've marked this task as done:");
+        System.out.println(task.getStatusString());
+    }
+
+    /**
+     * Displays a confirmation message when a task is unmarked.
+     *
+     * @param task the task that was unmarked
+     */
+    public void showTaskUnmarked(Task task) {
+        System.out.println("OK, I've marked this task as not done yet:");
+        System.out.println(task.getStatusString());
     }
 
     /**
