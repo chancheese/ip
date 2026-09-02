@@ -30,7 +30,9 @@ Ensure that Java 25 is used when running the application or build tasks. On macO
 
 ## Coding Standard:
 
-Follow the [SE-EDU Java Coding Standard](https://se-education.org/guides/conventions/java/intermediate.html) (intermediate level) for all code in this project.
+**MANDATORY**: Follow the [SE-EDU Java Coding Standard](https://se-education.org/guides/conventions/java/intermediate.html) (intermediate level) for all code in this project.
+
+Use the `/seedu-java-coding-standard` skill to review and validate code against these standards.
 
 **Key naming conventions:**
 - **Package names**: all lowercase (e.g., `com.company.app`)
@@ -38,14 +40,40 @@ Follow the [SE-EDU Java Coding Standard](https://se-education.org/guides/convent
 - **Variable names**: camelCase (e.g., `taskList`, `userInput`)
 - **Method names**: verbs in camelCase (e.g., `addTask()`, `getTasks()`)
 - **Constants**: SCREAMING_SNAKE_CASE (e.g., `MAX_TASKS`, `DEFAULT_SEPARATOR`)
+- **Boolean methods**: Prefix with `is`, `has`, `was`, `can`, `should` (e.g., `isDone()`, `hasNext()`)
+- **Collections**: Use plural names (e.g., `tasks` not `taskList`)
+
+**Javadoc requirements:**
+- All classes require Javadoc comments
+- All public methods (except getters/setters and overrides) require Javadoc
+- Javadoc must start with a verb form (Returns, Sends, Adds, etc.)
+- Include `@param` and `@return` tags for all parameters and return values
 
 For other topics not covered, refer to the [Google Java Style Guide](https://google.github.io/styleguide/javaguide.html).
 
 ## Git
 
-Use lightweight tags unless the user requests an annotated tag.
-When proposing or creating a commit message, include enough detail to explain the rationale for the change.
-Do not commit or push unless explicitly asked.
+**MANDATORY**: Follow the [SE-EDU Git Standard](https://se-education.org/guides/conventions/git.html) for all commits and branches.
+
+Use the `/seedu-git-standard` skill to validate commit messages and branching practices.
+
+**Commit message requirements:**
+- Subject line: 50 characters (hard limit 72)
+- Use imperative mood: "Add feature" not "Added feature"
+- Start with capital letter, no period at end
+- Optional scope prefix: `ClassName: Add method description`
+- Body: Explain WHAT and WHY, not HOW
+- Body width: 72 characters
+- End with attribution: `Co-Authored-By: Claude Haiku 4.5 <noreply@anthropic.com>`
+
+**Branch naming:**
+- Use kebab-case with meaningful keywords (e.g., `refactor-parser`)
+- Issue-related: `issuenumber-keyword-from-title` (e.g., `42-add-todo-class`)
+
+**Other requirements:**
+- Use lightweight tags unless explicitly requested otherwise
+- Do not commit or push unless explicitly asked by the user
+- Always review staged files with `git status` before committing
 
 ## Implementation Grading [10 marks]
 
