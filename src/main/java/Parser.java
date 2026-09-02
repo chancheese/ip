@@ -1,6 +1,6 @@
 /**
  * Parser interprets user input and identifies commands.
- * Recognizes commands: "list", "bye", "mark", "unmark", and task additions.
+ * Recognizes commands: "list", "bye", "mark", "unmark", "todo", "deadline", "event".
  */
 public class Parser {
     /**
@@ -8,17 +8,19 @@ public class Parser {
      * Extracts the first word as the command.
      *
      * @param input the user's input string
-     * @return the command type: "list", "bye", "mark", "unmark", or "add"
+     * @return the command type: "list", "bye", "mark", "unmark", "todo", "deadline", "event"
      */
     public String getCommand(String input) {
         String[] parts = input.split(" ", 2);
         String command = parts[0].toLowerCase();
 
         if (command.equals("list") || command.equals("bye") ||
-            command.equals("mark") || command.equals("unmark")) {
+            command.equals("mark") || command.equals("unmark") ||
+            command.equals("todo") || command.equals("deadline") ||
+            command.equals("event")) {
             return command;
         }
-        return "add";
+        return "unknown";
     }
 
     /**
@@ -37,17 +39,74 @@ public class Parser {
     }
 
     /**
-     * Extracts the task description from an "add" command.
-     * For "add Buy groceries" or just "Buy groceries", returns the task text.
+     * Extracts the task name from a todo command.
+     * For "todo borrow book", returns "borrow book".
      *
      * @param input the user's input string
-     * @return the task description
+     * @return the task name
      */
-    public String getTaskContent(String input) {
+    public String getTodoName(String input) {
         String[] parts = input.split(" ", 2);
-        if (parts.length > 1 && parts[0].toLowerCase().equals("add")) {
+        if (parts.length > 1) {
             return parts[1].trim();
         }
-        return input;
+        return "";
+    }
+
+    /**
+     * Extracts the task name and deadline from a deadline command.
+     * For "deadline return book /by Sunday", extracts both the name and deadline.
+     *
+     * @param input the user's input string
+     * @return an array [name, deadline], or empty strings if parsing fails
+     */
+    public String[] getDeadlineInfo(String input) {
+        String[] parts = input.split(" ", 2);
+        if (parts.length < 2) {
+            return new String[]{"", ""};
+        }
+
+        String content = parts[1];
+        String[] taskParts = content.split("/by", 2);
+
+        if (taskParts.length != 2) {
+            return new String[]{"", ""};
+        }
+
+        String name = taskParts[0].trim();
+        String by = taskParts[1].trim();
+        return new String[]{name, by};
+    }
+
+    /**
+     * Extracts the task name, start time, and end time from an event command.
+     * For "event project meeting /from Mon 2pm /to 4pm", extracts all three.
+     *
+     * @param input the user's input string
+     * @return an array [name, from, to], or empty strings if parsing fails
+     */
+    public String[] getEventInfo(String input) {
+        String[] parts = input.split(" ", 2);
+        if (parts.length < 2) {
+            return new String[]{"", "", ""};
+        }
+
+        String content = parts[1];
+        String[] nameAndRest = content.split("/from", 2);
+
+        if (nameAndRest.length != 2) {
+            return new String[]{"", "", ""};
+        }
+
+        String name = nameAndRest[0].trim();
+        String[] timeInfo = nameAndRest[1].split("/to", 2);
+
+        if (timeInfo.length != 2) {
+            return new String[]{"", "", ""};
+        }
+
+        String from = timeInfo[0].trim();
+        String to = timeInfo[1].trim();
+        return new String[]{name, from, to};
     }
 }

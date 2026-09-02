@@ -53,12 +53,13 @@ public class Task {
     }
 
     /**
-     * Returns the task with its completion status.
+     * Returns the task with its completion status (without type icon).
      * Format: [X] name (if done) or [ ] name (if not done)
      *
      * @return the task string with status indicator
      */
-    public String getStatusString() {
+    @Override
+    public String toString() {
         String status = isDone ? "[X]" : "[ ]";
         return status + " " + name;
     }

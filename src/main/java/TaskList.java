@@ -16,12 +16,42 @@ public class TaskList {
     }
 
     /**
-     * Adds a new task to the list.
+     * Adds a new Todo to the list.
+     *
+     * @param name the todo description
+     */
+    public void addTodo(String name) {
+        this.tasks.add(new Todo(name));
+    }
+
+    /**
+     * Adds a new Deadline to the list.
+     *
+     * @param name the deadline description
+     * @param by the deadline as a string
+     */
+    public void addDeadline(String name, String by) {
+        this.tasks.add(new Deadline(name, by));
+    }
+
+    /**
+     * Adds a new Event to the list.
+     *
+     * @param name the event description
+     * @param from the start date/time
+     * @param to the end date/time
+     */
+    public void addEvent(String name, String from, String to) {
+        this.tasks.add(new Event(name, from, to));
+    }
+
+    /**
+     * Adds a new task to the list (generic method for backwards compatibility).
      *
      * @param description the task description to add
      */
     public void addTask(String description) {
-        this.tasks.add(new Task(description));
+        this.tasks.add(new Todo(description));
     }
 
     /**
