@@ -46,15 +46,6 @@ public class TaskList {
     }
 
     /**
-     * Adds a new task to the list (generic method for backwards compatibility).
-     *
-     * @param description the task description to add
-     */
-    public void addTask(String description) {
-        this.tasks.add(new Todo(description));
-    }
-
-    /**
      * Returns all tasks in the list.
      *
      * @return a list of all tasks
@@ -69,7 +60,7 @@ public class TaskList {
      * @param index the 1-based index of the task to mark as done
      */
     public void markTaskDone(int index) {
-        tasks.get(index - 1).setDone(true);
+        this.tasks.get(index - 1).setDone(true);
     }
 
     /**
@@ -78,7 +69,7 @@ public class TaskList {
      * @param index the 1-based index of the task to unmark
      */
     public void unmarkTaskDone(int index) {
-        tasks.get(index - 1).setDone(false);
+        this.tasks.get(index - 1).setDone(false);
     }
 
     /**
@@ -88,5 +79,14 @@ public class TaskList {
      */
     public int size() {
         return this.tasks.size();
+    }
+
+    /**
+     * Returns the last task added to the list.
+     *
+     * @return the most recently added task
+     */
+    public Task getLastTask() {
+        return this.tasks.get(this.tasks.size() - 1);
     }
 }

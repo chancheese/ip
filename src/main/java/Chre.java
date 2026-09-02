@@ -38,15 +38,15 @@ public class Chre {
             } else if (command.equals("todo")) {
                 String name = parser.getTodoName(userInput);
                 taskList.addTodo(name);
-                ui.showTaskAdded(taskList.getTasks().get(taskList.getTasks().size() - 1), taskList.size());
+                ui.showTaskAdded(taskList.getLastTask(), taskList.size());
             } else if (command.equals("deadline")) {
                 String[] info = parser.getDeadlineInfo(userInput);
                 taskList.addDeadline(info[0], info[1]);
-                ui.showTaskAdded(taskList.getTasks().get(taskList.getTasks().size() - 1), taskList.size());
+                ui.showTaskAdded(taskList.getLastTask(), taskList.size());
             } else if (command.equals("event")) {
                 String[] info = parser.getEventInfo(userInput);
                 taskList.addEvent(info[0], info[1], info[2]);
-                ui.showTaskAdded(taskList.getTasks().get(taskList.getTasks().size() - 1), taskList.size());
+                ui.showTaskAdded(taskList.getLastTask(), taskList.size());
             } else {
                 System.out.println("Unknown command. Please try again.");
             }
