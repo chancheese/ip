@@ -29,6 +29,9 @@ public class Chre {
                 } else if (command.equals("bye")) {
                     isRunning = false;
                 } else if (command.equals("mark")) {
+                    if (taskList.size() == 0) {
+                        throw new ChreException("You don't have any tasks yet! Would you like to add one?");
+                    }
                     int index = Integer.parseInt(parser.getTaskIndex(userInput));
                     if (index <= 0 || index > taskList.size()) {
                         throw new ChreException("I couldn't find that task. Could you check the task number and try again?");
@@ -36,6 +39,9 @@ public class Chre {
                     taskList.markTaskDone(index);
                     ui.showTaskMarked(taskList.getTasks().get(index - 1));
                 } else if (command.equals("unmark")) {
+                    if (taskList.size() == 0) {
+                        throw new ChreException("You don't have any tasks yet! Would you like to add one?");
+                    }
                     int index = Integer.parseInt(parser.getTaskIndex(userInput));
                     if (index <= 0 || index > taskList.size()) {
                         throw new ChreException("I couldn't find that task. Could you check the task number and try again?");
