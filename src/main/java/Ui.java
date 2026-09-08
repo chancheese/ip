@@ -113,6 +113,15 @@ public class Ui {
     }
 
     /**
+     * Displays an error message to the user.
+     *
+     * @param message the error message to display
+     */
+    public void showError(String message) {
+        System.out.println(message);
+    }
+
+    /**
      * Closes the scanner resource.
      */
     public void close() {
