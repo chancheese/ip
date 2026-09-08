@@ -1,3 +1,5 @@
+package chre.task;
+
 /**
  * Deadline represents a task that needs to be done by a specific date/time.
  */

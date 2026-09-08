@@ -1,5 +1,11 @@
+package chre.data;
+
 import java.util.ArrayList;
 import java.util.List;
+import chre.task.Task;
+import chre.task.Todo;
+import chre.task.Deadline;
+import chre.task.Event;
 
 /**
  * TaskList manages a collection of Task tasks.

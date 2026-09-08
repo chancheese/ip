@@ -1,3 +1,5 @@
+package chre.task;
+
 /**
  * Event represents a task that starts at a specific date/time and ends at another.
  */

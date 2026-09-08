@@ -1,3 +1,10 @@
+package chre;
+
+import chre.ui.Ui;
+import chre.parser.Parser;
+import chre.data.TaskList;
+import chre.exception.ChreException;
+
 /**
  * Chre is a simple chatbot that manages tasks.
  * Orchestrates the Ui, Parser, and TaskList components.

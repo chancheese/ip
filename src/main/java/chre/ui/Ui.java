@@ -1,5 +1,8 @@
+package chre.ui;
+
 import java.util.Scanner;
 import java.util.List;
+import chre.task.Task;
 
 /**
  * Ui handles all user interface interactions.

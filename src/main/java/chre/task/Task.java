@@ -1,3 +1,5 @@
+package chre.task;
+
 /**
  * Task represents a single task with a description and completion status.
  */
