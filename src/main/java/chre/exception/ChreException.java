@@ -1,3 +1,5 @@
+package chre.exception;
+
 /**
  * ChreException is a custom exception class for errors in the Chre chatbot.
  * Used to represent application-specific errors that can be caught and handled gracefully.

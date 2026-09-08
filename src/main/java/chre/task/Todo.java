@@ -1,3 +1,5 @@
+package chre.task;
+
 /**
  * Todo represents a task without any date/time attached.
  */

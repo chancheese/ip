@@ -1,3 +1,7 @@
+package chre.parser;
+
+import chre.exception.ChreException;
+
 /**
  * Parser interprets user input and identifies commands.
  * Recognizes commands: "list", "bye", "mark", "unmark", "todo", "deadline", "event".
