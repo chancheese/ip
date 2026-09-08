@@ -64,7 +64,6 @@ Use the `/seedu-git-standard` skill to validate commit messages and branching pr
 - Optional scope prefix: `ClassName: Add method description`
 - Body: Explain WHAT and WHY, not HOW
 - Body width: 72 characters
-- End with attribution: `Co-Authored-By: Claude Haiku 4.5 <noreply@anthropic.com>`
 
 **Branch naming:**
 - Use kebab-case with meaningful keywords (e.g., `refactor-parser`)
