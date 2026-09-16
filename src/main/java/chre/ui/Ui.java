@@ -109,6 +109,18 @@ public class Ui {
     }
 
     /**
+     * Displays a confirmation message when a task is deleted.
+     *
+     * @param task the task that was deleted
+     * @param totalTasks the total number of remaining tasks in the list
+     */
+    public void showTaskDeleted(Task task, int totalTasks) {
+        System.out.println("Noted. I've removed this task:");
+        System.out.println("  " + task);
+        System.out.println("Now you have " + totalTasks + " tasks in the list.");
+    }
+
+    /**
      * Displays the separator line.
      */
     public void showSeparator() {

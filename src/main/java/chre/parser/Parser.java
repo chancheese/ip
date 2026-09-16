@@ -4,7 +4,7 @@ import chre.exception.ChreException;
 
 /**
  * Parser interprets user input and identifies commands.
- * Recognizes commands: "list", "bye", "mark", "unmark", "todo", "deadline", "event".
+ * Recognizes commands: "list", "bye", "mark", "unmark", "delete", "todo", "deadline", "event".
  */
 public class Parser {
     /**
@@ -12,7 +12,7 @@ public class Parser {
      * Extracts the first word as the command.
      *
      * @param input the user's input string
-     * @return the command type: "list", "bye", "mark", "unmark", "todo", "deadline", "event"
+     * @return the command type: "list", "bye", "mark", "unmark", "delete", "todo", "deadline", "event"
      */
     public String getCommand(String input) {
         String[] parts = input.split(" ", 2);
@@ -20,8 +20,8 @@ public class Parser {
 
         if (command.equals("list") || command.equals("bye") ||
             command.equals("mark") || command.equals("unmark") ||
-            command.equals("todo") || command.equals("deadline") ||
-            command.equals("event")) {
+            command.equals("delete") || command.equals("todo") ||
+            command.equals("deadline") || command.equals("event")) {
             return command;
         }
         return "unknown";

@@ -4,6 +4,7 @@ import chre.ui.Ui;
 import chre.parser.Parser;
 import chre.data.TaskList;
 import chre.exception.ChreException;
+import chre.task.Task;
 
 /**
  * Chre is a simple chatbot that manages tasks.
@@ -55,6 +56,16 @@ public class Chre {
                     }
                     taskList.unmarkTaskDone(index);
                     ui.showTaskUnmarked(taskList.getTasks().get(index - 1));
+                } else if (command.equals("delete")) {
+                    if (taskList.size() == 0) {
+                        throw new ChreException("You don't have any tasks yet! Would you like to add one?");
+                    }
+                    int index = Integer.parseInt(parser.getTaskIndex(userInput));
+                    if (index <= 0 || index > taskList.size()) {
+                        throw new ChreException("I couldn't find that task. Could you check the task number and try again?");
+                    }
+                    Task deletedTask = taskList.deleteTask(index);
+                    ui.showTaskDeleted(deletedTask, taskList.size());
                 } else if (command.equals("todo")) {
                     String name = parser.getTodoName(userInput);
                     taskList.addTodo(name);
@@ -68,7 +79,7 @@ public class Chre {
                     taskList.addEvent(info[0], info[1], info[2]);
                     ui.showTaskAdded(taskList.getLastTask(), taskList.size());
                 } else {
-                    throw new ChreException("I'm not sure what you mean, but I'm here to help! You can use: list, todo, deadline, event, mark, unmark, or bye.");
+                    throw new ChreException("I'm not sure what you mean, but I'm here to help! You can use: list, todo, deadline, event, mark, unmark, delete, or bye.");
                 }
 
                 ui.showSeparator();

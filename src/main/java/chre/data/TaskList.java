@@ -95,4 +95,14 @@ public class TaskList {
     public Task getLastTask() {
         return this.tasks.get(this.tasks.size() - 1);
     }
+
+    /**
+     * Deletes a task from the list by its 1-based index.
+     *
+     * @param index the 1-based index of the task to delete
+     * @return the deleted task
+     */
+    public Task deleteTask(int index) {
+        return this.tasks.remove(index - 1);
+    }
 }
