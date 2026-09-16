@@ -22,6 +22,15 @@ public class TaskList {
     }
 
     /**
+     * Constructs a TaskList with initial tasks.
+     *
+     * @param initialTasks the initial list of tasks
+     */
+    public TaskList(List<Task> initialTasks) {
+        this.tasks = new ArrayList<>(initialTasks);
+    }
+
+    /**
      * Adds a new Todo to the list.
      *
      * @param name the todo description
