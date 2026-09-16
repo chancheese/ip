@@ -3,23 +3,32 @@ package chre;
 import chre.ui.Ui;
 import chre.parser.Parser;
 import chre.data.TaskList;
+import chre.storage.Storage;
 import chre.exception.ChreException;
 
 /**
  * Chre is a simple chatbot that manages tasks.
- * Orchestrates the Ui, Parser, and TaskList components.
+ * Orchestrates the Ui, Parser, TaskList, and Storage components.
  */
 public class Chre {
     /**
      * Main entry point for the Chre chatbot application.
-     * Coordinates user input, task management, and output.
+     * Coordinates user input, task management, storage, and output.
      *
      * @param args Command-line arguments (not used)
      */
     public static void main(String[] args) {
         Ui ui = new Ui();
         Parser parser = new Parser();
-        TaskList taskList = new TaskList();
+        Storage storage = new Storage();
+        TaskList taskList;
+
+        try {
+            taskList = new TaskList(storage.load());
+        } catch (ChreException e) {
+            ui.showError(e.getMessage());
+            taskList = new TaskList();
+        }
 
         ui.displayWelcome();
 
@@ -45,6 +54,7 @@ public class Chre {
                     }
                     taskList.markTaskDone(index);
                     ui.showTaskMarked(taskList.getTasks().get(index - 1));
+                    storage.save(taskList.getTasks());
                 } else if (command.equals("unmark")) {
                     if (taskList.size() == 0) {
                         throw new ChreException("You don't have any tasks yet! Would you like to add one?");
@@ -55,18 +65,22 @@ public class Chre {
                     }
                     taskList.unmarkTaskDone(index);
                     ui.showTaskUnmarked(taskList.getTasks().get(index - 1));
+                    storage.save(taskList.getTasks());
                 } else if (command.equals("todo")) {
                     String name = parser.getTodoName(userInput);
                     taskList.addTodo(name);
                     ui.showTaskAdded(taskList.getLastTask(), taskList.size());
+                    storage.save(taskList.getTasks());
                 } else if (command.equals("deadline")) {
                     String[] info = parser.getDeadlineInfo(userInput);
                     taskList.addDeadline(info[0], info[1]);
                     ui.showTaskAdded(taskList.getLastTask(), taskList.size());
+                    storage.save(taskList.getTasks());
                 } else if (command.equals("event")) {
                     String[] info = parser.getEventInfo(userInput);
                     taskList.addEvent(info[0], info[1], info[2]);
                     ui.showTaskAdded(taskList.getLastTask(), taskList.size());
+                    storage.save(taskList.getTasks());
                 } else {
                     throw new ChreException("I'm not sure what you mean, but I'm here to help! You can use: list, todo, deadline, event, mark, unmark, or bye.");
                 }
