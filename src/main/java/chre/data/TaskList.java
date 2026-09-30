@@ -115,4 +115,21 @@ public class TaskList {
     public Task deleteTask(int index) {
         return this.tasks.remove(index - 1);
     }
+
+    /**
+     * Finds all tasks that contain the keyword in their name (case-insensitive).
+     *
+     * @param keyword the search keyword
+     * @return a list of matching tasks
+     */
+    public List<Task> findTasks(String keyword) {
+        List<Task> matchingTasks = new ArrayList<>();
+        String lowerKeyword = keyword.toLowerCase();
+        for (Task task : this.tasks) {
+            if (task.getName().toLowerCase().contains(lowerKeyword)) {
+                matchingTasks.add(task);
+            }
+        }
+        return matchingTasks;
+    }
 }

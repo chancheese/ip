@@ -36,6 +36,9 @@ public class Parser {
             case "delete":
                 int deleteIndex = Integer.parseInt(getTaskIndex(input));
                 return new DeleteCommand(deleteIndex);
+            case "find":
+                String keyword = getFindKeyword(input);
+                return new FindCommand(keyword);
             case "todo":
                 String todoName = getTodoName(input);
                 return new TodoCommand(todoName);
@@ -202,5 +205,25 @@ public class Parser {
         }
 
         return new String[]{name, from, to};
+    }
+
+    /**
+     * Extracts the search keyword from a find command.
+     * For "find book", returns "book".
+     *
+     * @param input the user's input string
+     * @return the search keyword
+     * @throws ChreException if the keyword is empty
+     */
+    public String getFindKeyword(String input) throws ChreException {
+        String[] parts = input.split(" ", 2);
+        if (parts.length < 2) {
+            throw new ChreException("What keyword would you like to search for? Try: find <keyword>");
+        }
+        String keyword = parts[1].trim();
+        if (keyword.isEmpty()) {
+            throw new ChreException("What keyword would you like to search for? Try: find <keyword>");
+        }
+        return keyword;
     }
 }
