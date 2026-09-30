@@ -13,6 +13,12 @@ public class Todo extends Task {
         super(name);
     }
 
+    /**
+     * Returns the todo with its type icon and completion status.
+     * Format: [T][X] name (if done) or [T][ ] name (if not done)
+     *
+     * @return the formatted todo string
+     */
     @Override
     public String toString() {
         return "[T]" + super.toString();
