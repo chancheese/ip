@@ -1,7 +1,10 @@
 package chre.parser;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import chre.exception.ChreException;
 import chre.command.*;
+import chre.util.DateUtil;
 
 /**
  * Parser interprets user input and creates appropriate Command objects.
@@ -38,10 +41,21 @@ public class Parser {
                 return new TodoCommand(todoName);
             case "deadline":
                 String[] deadlineInfo = getDeadlineInfo(input);
-                return new DeadlineCommand(deadlineInfo[0], deadlineInfo[1]);
+                try {
+                    LocalDate deadlineDate = DateUtil.parseDate(deadlineInfo[1]);
+                    return new DeadlineCommand(deadlineInfo[0], deadlineDate);
+                } catch (DateTimeParseException e) {
+                    throw new ChreException("Invalid date format! Please use yyyy-MM-dd (e.g., 2019-10-15).");
+                }
             case "event":
                 String[] eventInfo = getEventInfo(input);
-                return new EventCommand(eventInfo[0], eventInfo[1], eventInfo[2]);
+                try {
+                    LocalDate fromDate = DateUtil.parseDate(eventInfo[1]);
+                    LocalDate toDate = DateUtil.parseDate(eventInfo[2]);
+                    return new EventCommand(eventInfo[0], fromDate, toDate);
+                } catch (DateTimeParseException e) {
+                    throw new ChreException("Invalid date format! Please use yyyy-MM-dd (e.g., 2019-10-15).");
+                }
             default:
                 return new UnknownCommand();
         }
@@ -130,7 +144,7 @@ public class Parser {
         String[] taskParts = content.split("/by", 2);
 
         if (taskParts.length != 2) {
-            throw new ChreException("Just to help you better, please format it like this: deadline <task> /by <date>");
+            throw new ChreException("Just to help you better, please format it like this: deadline <task> /by yyyy-MM-dd");
         }
 
         String name = taskParts[0].trim();
@@ -140,7 +154,7 @@ public class Parser {
             throw new ChreException("I'd love to help you set a deadline! Could you tell me what task you need to complete?");
         }
         if (by.isEmpty()) {
-            throw new ChreException("When do you need to finish this? Please add a deadline like this: deadline <task> /by <date>");
+            throw new ChreException("When do you need to finish this? Please add a deadline like this: deadline <task> /by yyyy-MM-dd");
         }
 
         return new String[]{name, by};
@@ -164,14 +178,14 @@ public class Parser {
         String[] nameAndRest = content.split("/from", 2);
 
         if (nameAndRest.length != 2) {
-            throw new ChreException("Let me help you organize this! Please format it like: event <name> /from <start> /to <end>");
+            throw new ChreException("Let me help you organize this! Please format it like: event <name> /from yyyy-MM-dd /to yyyy-MM-dd");
         }
 
         String name = nameAndRest[0].trim();
         String[] timeInfo = nameAndRest[1].split("/to", 2);
 
         if (timeInfo.length != 2) {
-            throw new ChreException("Let me help you organize this! Please format it like: event <name> /from <start> /to <end>");
+            throw new ChreException("Let me help you organize this! Please format it like: event <name> /from yyyy-MM-dd /to yyyy-MM-dd");
         }
 
         String from = timeInfo[0].trim();
@@ -181,10 +195,10 @@ public class Parser {
             throw new ChreException("I'm here to help you keep track! What event would you like to add?");
         }
         if (from.isEmpty()) {
-            throw new ChreException("When does your event start? Please let me know the start time.");
+            throw new ChreException("When does your event start? Please format the date as yyyy-MM-dd (e.g., 2019-10-15).");
         }
         if (to.isEmpty()) {
-            throw new ChreException("When does your event end? Please let me know the end time.");
+            throw new ChreException("When does your event end? Please format the date as yyyy-MM-dd (e.g., 2019-10-15).");
         }
 
         return new String[]{name, from, to};

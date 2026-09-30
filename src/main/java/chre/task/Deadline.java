@@ -1,18 +1,21 @@
 package chre.task;
 
+import java.time.LocalDate;
+import chre.util.DateUtil;
+
 /**
  * Deadline represents a task that needs to be done by a specific date/time.
  */
 public class Deadline extends Task {
-    private String by;
+    private LocalDate by;
 
     /**
-     * Constructs a Deadline with the given name and deadline.
+     * Constructs a Deadline with the given name and deadline date.
      *
      * @param name the task description
-     * @param by the deadline as a string
+     * @param by the deadline as a LocalDate
      */
-    public Deadline(String name, String by) {
+    public Deadline(String name, LocalDate by) {
         super(name);
         this.by = by;
     }
@@ -20,14 +23,15 @@ public class Deadline extends Task {
     /**
      * Returns the deadline.
      *
-     * @return the deadline string
+     * @return the deadline date
      */
-    public String getBy() {
+    public LocalDate getBy() {
         return by;
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        String formattedDate = DateUtil.formatDate(by);
+        return "[D]" + super.toString() + " (by: " + formattedDate + ")";
     }
 }

@@ -1,5 +1,6 @@
 package chre.data;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import chre.task.Task;
@@ -43,9 +44,9 @@ public class TaskList {
      * Adds a new Deadline to the list.
      *
      * @param name the deadline description
-     * @param by the deadline as a string
+     * @param by the deadline date
      */
-    public void addDeadline(String name, String by) {
+    public void addDeadline(String name, LocalDate by) {
         this.tasks.add(new Deadline(name, by));
     }
 
@@ -53,10 +54,10 @@ public class TaskList {
      * Adds a new Event to the list.
      *
      * @param name the event description
-     * @param from the start date/time
-     * @param to the end date/time
+     * @param from the start date
+     * @param to the end date
      */
-    public void addEvent(String name, String from, String to) {
+    public void addEvent(String name, LocalDate from, LocalDate to) {
         this.tasks.add(new Event(name, from, to));
     }
 

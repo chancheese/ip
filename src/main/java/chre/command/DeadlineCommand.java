@@ -1,5 +1,6 @@
 package chre.command;
 
+import java.time.LocalDate;
 import chre.data.TaskList;
 import chre.ui.Ui;
 import chre.storage.Storage;
@@ -10,15 +11,15 @@ import chre.exception.ChreException;
  */
 public class DeadlineCommand extends Command {
     private String name;
-    private String by;
+    private LocalDate by;
 
     /**
      * Creates a DeadlineCommand with the given task name and deadline.
      *
      * @param name the name of the deadline task
-     * @param by the deadline
+     * @param by the deadline date
      */
-    public DeadlineCommand(String name, String by) {
+    public DeadlineCommand(String name, LocalDate by) {
         this.name = name;
         this.by = by;
     }

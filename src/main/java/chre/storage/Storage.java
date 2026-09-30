@@ -7,6 +7,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +16,7 @@ import chre.task.Todo;
 import chre.task.Deadline;
 import chre.task.Event;
 import chre.exception.ChreException;
+import chre.util.DateUtil;
 
 /**
  * Storage handles loading and saving tasks from/to the hard disk.
@@ -134,9 +136,12 @@ public class Storage {
      */
     private String getTaskDetails(Task task) {
         if (task instanceof Deadline) {
-            return " | " + ((Deadline) task).getBy();
+            LocalDate by = ((Deadline) task).getBy();
+            return " | " + by.toString();
         } else if (task instanceof Event) {
-            return " | " + ((Event) task).getFrom() + " | " + ((Event) task).getTo();
+            LocalDate from = ((Event) task).getFrom();
+            LocalDate to = ((Event) task).getTo();
+            return " | " + from.toString() + " | " + to.toString();
         }
         return "";
     }
@@ -165,15 +170,23 @@ public class Storage {
                 if (parts.length < 4) {
                     return null;
                 }
-                String by = parts[3].trim();
-                task = new Deadline(name, by);
+                try {
+                    LocalDate by = LocalDate.parse(parts[3].trim());
+                    task = new Deadline(name, by);
+                } catch (Exception e) {
+                    return null;
+                }
             } else if (type.equals("E")) {
                 if (parts.length < 5) {
                     return null;
                 }
-                String from = parts[3].trim();
-                String to = parts[4].trim();
-                task = new Event(name, from, to);
+                try {
+                    LocalDate from = LocalDate.parse(parts[3].trim());
+                    LocalDate to = LocalDate.parse(parts[4].trim());
+                    task = new Event(name, from, to);
+                } catch (Exception e) {
+                    return null;
+                }
             } else {
                 return null;
             }
