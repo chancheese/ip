@@ -1,6 +1,14 @@
-# Chre project template
+# Chre
 
-This is a project template for a greenfield Java project. Given below are instructions on how to use it.
+Chre is a friendly task management chatbot that helps you stay organized. Add tasks, set deadlines, track events, and search your task list—all from the command line!
+
+📖 **[Read the User Guide](docs/README.md)** for how to use Chre.
+
+---
+
+## For Developers
+
+This section contains setup instructions for developers working on the project.
 
 ## Setting up in Intellij
 
