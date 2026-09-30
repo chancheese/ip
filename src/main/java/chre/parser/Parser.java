@@ -1,12 +1,52 @@
 package chre.parser;
 
 import chre.exception.ChreException;
+import chre.command.*;
 
 /**
- * Parser interprets user input and identifies commands.
+ * Parser interprets user input and creates appropriate Command objects.
  * Recognizes commands: "list", "bye", "mark", "unmark", "delete", "todo", "deadline", "event".
  */
 public class Parser {
+    /**
+     * Parses the user input and returns the corresponding Command object.
+     *
+     * @param input the user's input string
+     * @return a Command object representing the user's request
+     * @throws ChreException if parsing fails
+     */
+    public Command parse(String input) throws ChreException {
+        String[] parts = input.split(" ", 2);
+        String command = parts[0].toLowerCase();
+
+        switch (command) {
+            case "list":
+                return new ListCommand();
+            case "bye":
+                return new ByeCommand();
+            case "mark":
+                int markIndex = Integer.parseInt(getTaskIndex(input));
+                return new MarkCommand(markIndex);
+            case "unmark":
+                int unmarkIndex = Integer.parseInt(getTaskIndex(input));
+                return new UnmarkCommand(unmarkIndex);
+            case "delete":
+                int deleteIndex = Integer.parseInt(getTaskIndex(input));
+                return new DeleteCommand(deleteIndex);
+            case "todo":
+                String todoName = getTodoName(input);
+                return new TodoCommand(todoName);
+            case "deadline":
+                String[] deadlineInfo = getDeadlineInfo(input);
+                return new DeadlineCommand(deadlineInfo[0], deadlineInfo[1]);
+            case "event":
+                String[] eventInfo = getEventInfo(input);
+                return new EventCommand(eventInfo[0], eventInfo[1], eventInfo[2]);
+            default:
+                return new UnknownCommand();
+        }
+    }
+
     /**
      * Parses the user input and returns the command type.
      * Extracts the first word as the command.
