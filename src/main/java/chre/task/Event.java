@@ -41,6 +41,12 @@ public class Event extends Task {
         return to;
     }
 
+    /**
+     * Returns the event with its type icon, completion status, and date range.
+     * Format: [E][X] name (from: MMM dd yyyy to: MMM dd yyyy) if done, or [E][ ] ... if not done
+     *
+     * @return the formatted event string
+     */
     @Override
     public String toString() {
         String fromFormatted = DateUtil.formatDate(from);

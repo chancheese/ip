@@ -29,6 +29,12 @@ public class Deadline extends Task {
         return by;
     }
 
+    /**
+     * Returns the deadline with its type icon, completion status, and deadline date.
+     * Format: [D][X] name (by: MMM dd yyyy) if done, or [D][ ] name (by: MMM dd yyyy) if not done
+     *
+     * @return the formatted deadline string
+     */
     @Override
     public String toString() {
         String formattedDate = DateUtil.formatDate(by);
